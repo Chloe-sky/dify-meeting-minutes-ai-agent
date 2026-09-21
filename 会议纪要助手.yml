@@ -1,0 +1,463 @@
+app:
+  description: 语音转文本
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 会议纪要助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.20@850efe73fb62bbe7ab2229116086596596297a77174fb86f73e1363b99a24116
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: stvlynn/doc:0.0.1@900d82963e63c505136dfc77f3e06329326e714ca66bed668224e811f73efc7b
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: true
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: start
+        targetType: tool
+      id: 1789890791351-source-1789995717141-target
+      selected: false
+      source: '1789890791351'
+      sourceHandle: source
+      target: '1789995717141'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: llm
+      id: 1789995717141-source-1789996515906-target
+      selected: false
+      source: '1789995717141'
+      sourceHandle: source
+      target: '1789996515906'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: llm
+        targetType: tool
+      id: 1789996515906-source-1789997446648-target
+      selected: false
+      source: '1789996515906'
+      sourceHandle: source
+      target: '1789997446648'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: null
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: answer
+      id: 1789997446648-source-answer-target
+      source: '1789997446648'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - audio
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hide: false
+          hint: ''
+          label: audio_file
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: audio_file
+      height: 108
+      id: '1789890791351'
+      position:
+        x: 115
+        y: 27
+      positionAbsolute:
+        x: 115
+        y: 27
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        is_team_authorization: true
+        meta: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The audio file to be converted.
+            ja_JP: The audio file to be converted.
+            pt_BR: The audio file to be converted.
+            zh_Hans: 要转换的音频文件。
+          input_schema: null
+          label:
+            en_US: Audio File
+            ja_JP: Audio File
+            pt_BR: Audio File
+            zh_Hans: 音频文件
+          llm_description: The audio file to be converted.
+          max: null
+          min: null
+          multiple: false
+          name: audio_file
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: file
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: All available ASR models. You can config model in the Model Provider
+              of Settings.
+            ja_JP: All available ASR models. You can config model in the Model Provider
+              of Settings.
+            pt_BR: All available ASR models. You can config model in the Model Provider
+              of Settings.
+            zh_Hans: 所有可用的 ASR 模型。你可以在设置中的模型供应商里配置。
+          input_schema: null
+          label:
+            en_US: Model
+            ja_JP: Model
+            pt_BR: Model
+            zh_Hans: Model
+          llm_description: null
+          max: null
+          min: null
+          multiple: false
+          name: model
+          options:
+          - icon: null
+            label:
+              en_US: FunAudioLLM/SenseVoiceSmall(langgenius/siliconflow/siliconflow)
+              ja_JP: FunAudioLLM/SenseVoiceSmall(langgenius/siliconflow/siliconflow)
+              pt_BR: FunAudioLLM/SenseVoiceSmall(langgenius/siliconflow/siliconflow)
+              zh_Hans: FunAudioLLM/SenseVoiceSmall(langgenius/siliconflow/siliconflow)
+            value: langgenius/siliconflow/siliconflow#FunAudioLLM/SenseVoiceSmall
+          - icon: null
+            label:
+              en_US: fun-asr-flash-2026-06-15(langgenius/tongyi/tongyi)
+              ja_JP: fun-asr-flash-2026-06-15(langgenius/tongyi/tongyi)
+              pt_BR: fun-asr-flash-2026-06-15(langgenius/tongyi/tongyi)
+              zh_Hans: fun-asr-flash-2026-06-15(langgenius/tongyi/tongyi)
+            value: langgenius/tongyi/tongyi#fun-asr-flash-2026-06-15
+          - icon: null
+            label:
+              en_US: fun-asr(langgenius/tongyi/tongyi)
+              ja_JP: fun-asr(langgenius/tongyi/tongyi)
+              pt_BR: fun-asr(langgenius/tongyi/tongyi)
+              zh_Hans: fun-asr(langgenius/tongyi/tongyi)
+            value: langgenius/tongyi/tongyi#fun-asr
+          - icon: null
+            label:
+              en_US: paraformer-realtime-v1(langgenius/tongyi/tongyi)
+              ja_JP: paraformer-realtime-v1(langgenius/tongyi/tongyi)
+              pt_BR: paraformer-realtime-v1(langgenius/tongyi/tongyi)
+              zh_Hans: paraformer-realtime-v1(langgenius/tongyi/tongyi)
+            value: langgenius/tongyi/tongyi#paraformer-realtime-v1
+          - icon: null
+            label:
+              en_US: paraformer-realtime-v2(langgenius/tongyi/tongyi)
+              ja_JP: paraformer-realtime-v2(langgenius/tongyi/tongyi)
+              pt_BR: paraformer-realtime-v2(langgenius/tongyi/tongyi)
+              zh_Hans: paraformer-realtime-v2(langgenius/tongyi/tongyi)
+            value: langgenius/tongyi/tongyi#paraformer-realtime-v2
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        params:
+          audio_file: ''
+          model: ''
+        plugin_id: null
+        plugin_unique_identifier: ''
+        provider_icon: /console/api/workspaces/current/tool-provider/builtin/audio/icon
+        provider_icon_dark: null
+        provider_id: audio
+        provider_name: audio
+        provider_show_name: 音频
+        provider_type: builtin
+        selected: false
+        title: 语音转文本
+        tool_configurations:
+          model:
+            type: constant
+            value: langgenius/siliconflow/siliconflow#FunAudioLLM/SenseVoiceSmall
+        tool_description: 将音频文件转换为文本。
+        tool_label: 语音转文本
+        tool_name: asr
+        tool_node_version: '2'
+        tool_parameters:
+          audio_file:
+            type: variable
+            value:
+            - '1789890791351'
+            - audio_file
+        type: tool
+      height: 87
+      id: '1789995717141'
+      position:
+        x: 115
+        y: 160
+      positionAbsolute:
+        x: 115
+        y: 160
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1789995717141'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 35b1899b-a79c-4d7c-93cc-dfd39cb0fff1
+          role: system
+          text: '你是会议纪要助手。 请根据音频转写文本，输出一份结构清晰的会议纪要。 要求： 1. 使用标准 Markdown 格式。 2. 先输出正文纪要，结构包含：
+            # 会议纪要 ## 一、核心结论 ## 二、待办事项 ## 三、关键讨论要点3.哪一块没有可以不输出 ，不要输出多余解释，不要说“以下是纪要”等前缀。
+            4. 如果转写内容不完整，请基于已有信息合理整理。 转写文本： {{{#context#}}'
+        selected: false
+        title: 接收整理会议内容-LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789996515906'
+      position:
+        x: 115
+        y: 268
+      positionAbsolute:
+        x: 115
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        is_team_authorization: true
+        meta: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The Markdown content to be converted to Word document
+            ja_JP: Word ドキュメントに変換する Markdown コンテンツ
+            pt_BR: O conteúdo Markdown a ser convertido para documento Word
+            zh_Hans: 要转换为Word文档的Markdown内容
+          input_schema: null
+          label:
+            en_US: Markdown Content
+            ja_JP: Markdown コンテンツ
+            pt_BR: Conteúdo Markdown
+            zh_Hans: Markdown内容
+          llm_description: The Markdown content that will be converted to a Word document
+          max: null
+          min: null
+          multiple: false
+          name: markdown_content
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The title of the Word document
+            ja_JP: Word ドキュメントのタイトル
+            pt_BR: O título do documento Word
+            zh_Hans: Word文档的标题
+          input_schema: null
+          label:
+            en_US: Document Title
+            ja_JP: ドキュメントタイトル
+            pt_BR: Título do Documento
+            zh_Hans: 文档标题
+          llm_description: The title that will be displayed at the top of the Word
+            document
+          max: null
+          min: null
+          multiple: false
+          name: title
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          markdown_content: ''
+          title: ''
+        plugin_id: stvlynn/doc
+        plugin_unique_identifier: stvlynn/doc:0.0.1@900d82963e63c505136dfc77f3e06329326e714ca66bed668224e811f73efc7b
+        provider_icon: /console/api/workspaces/current/plugin/icon?tenant_id=ad919697-c640-42ba-bffa-19f93159fd2c&filename=cb0643689e2f8152d38c44a267a459fae99ff208b0bc164e27ccb053fc1844cd.svg
+        provider_icon_dark: null
+        provider_id: stvlynn/doc/doc
+        provider_name: stvlynn/doc/doc
+        provider_show_name: DOC
+        provider_type: builtin
+        selected: false
+        title: Markdown转DOCX转换器
+        tool_configurations: {}
+        tool_description: 将Markdown内容转换为DOCX（Word）文档
+        tool_label: Markdown转DOCX转换器
+        tool_name: markdown_to_docx_converter
+        tool_node_version: '2'
+        tool_parameters:
+          markdown_content:
+            type: mixed
+            value: '{{#1789996515906.text#}}'
+          title:
+            type: mixed
+            value: 会议纪要
+        type: tool
+      height: 51
+      id: '1789997446648'
+      position:
+        x: 115
+        y: 377
+      positionAbsolute:
+        x: 115
+        y: 377
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1789996515906.text#}}{{#1789997446648.files#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 101
+      id: answer
+      position:
+        x: 123
+        y: 455
+      positionAbsolute:
+        x: 123
+        y: 455
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    viewport:
+      x: 109.78054913386732
+      y: 10.197402822053107
+      zoom: 0.830470024090894
+  rag_pipeline_variables: []
